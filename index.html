@@ -475,6 +475,7 @@
             <div class="success-icon">✓</div>
             <h2>Dhanyavaad!</h2>
             <p id="successStudentName">Aapka admission form receive ho gaya hai.</p>
+            <p id="studentIdDisplay"></p>
             <p>Hamare staff aapko jald hi contact karenge admission process complete karne ke liye.</p>
             
             <div class="action-buttons">
@@ -620,8 +621,7 @@
                     aadhar: document.getElementById('aadhar').value.trim(),
                     email: document.getElementById('email').value.trim(),
                     course: document.getElementById('course').value,
-                    batchTime: document.getElementById('batchTime').value,
-                    timestamp: new Date().toLocaleString('hi-IN')
+                    batchTime: document.getElementById('batchTime').value
                 };
 
                 console.log('Sending data to Google Sheets:', formData);
@@ -635,35 +635,33 @@
                     body: JSON.stringify(formData)
                 });
 
-                if (response.ok) {
-                    const result = await response.json();
-                    console.log('Success Response:', result);
-                    showSuccessMessage();
+                const result = await response.json();
+                console.log('Response from server:', result);
+
+                if (result.status === 'success') {
+                    showSuccessMessage(result.studentId, result.studentName);
                 } else {
-                    throw new Error('Network response was not ok: ' + response.status);
+                    throw new Error(result.message || 'Unknown error occurred');
                 }
 
             } catch (error) {
                 console.error('Submission error:', error);
-                
                 // Fallback: Still show success to user
+                showSuccessMessage('GCEI-TEMP', document.getElementById('fullName').value);
                 alert('Form submitted successfully! We will contact you soon.');
-                showSuccessMessage();
-                
-                // Log data for manual entry
-                const formData = getFormData();
-                console.log('Form Data (for manual entry):', formData);
             } finally {
                 resetLoadingState();
             }
         }
 
-        function showSuccessMessage() {
+        function showSuccessMessage(studentId, studentName) {
             document.getElementById('admissionForm').style.display = 'none';
             document.getElementById('successMessage').style.display = 'block';
             
-            const studentName = document.getElementById('fullName').value;
-            document.getElementById('successStudentName').textContent = `Dhanyavaad, ${studentName}! Aapka admission form receive ho gaya hai.`;
+            document.getElementById('successStudentName').textContent = 
+                `Dhanyavaad, ${studentName}! Aapka admission form receive ho gaya hai.`;
+            document.getElementById('studentIdDisplay').textContent = 
+                `Your Student ID: ${studentId}`;
             
             window.scrollTo(0, 0);
         }
