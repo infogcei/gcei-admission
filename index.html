@@ -773,8 +773,9 @@
         function generateStudentId() {
             const prefix = "GCEI";
             const year = new Date().getFullYear();
-            const randomNum = Math.floor(1000 + Math.random() * 9000);
-            return `${prefix}-${year}-${randomNum}`;
+            // Generate timestamp-based ID to avoid conflicts
+            const timestamp = Date.now().toString().slice(-4);
+            return `${prefix}-${year}-${timestamp}`;
         }
 
         async function submitToGoogleSheets() {
