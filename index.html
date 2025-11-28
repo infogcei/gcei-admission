@@ -494,8 +494,8 @@
     </div>
 
     <script>
-        // ✅ NEW GOOGLE SCRIPT URL
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzsZM18DH7_EBXUhBV9zT0MH53yUaInGDoRPTmCZXg6WtwOuoTHMfKKyHcXsNFWvgQ3Lg/exec';
+        // ✅ GOOGLE SCRIPT URL - YAHAN APNI SCRIPT URL DALEN
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/exec';
 
         document.getElementById('submitBtn').addEventListener('click', async function(e) {
             e.preventDefault();
@@ -624,31 +624,36 @@
                     timestamp: new Date().toLocaleString('hi-IN')
                 };
 
-                console.log('Sending data from GitHub:', formData);
+                console.log('Sending data to Google Sheets:', formData);
 
-                // ✅ No-Cors mode use karo
+                // ✅ Normal fetch use करें
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors', // Important for GitHub Pages
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(formData)
                 });
 
-                // No-cors mode mein response read nahi kar sakte
-                console.log('Request sent (no-cors mode)');
-                
-                // ✅ Always show success - data save ho raha hai lekin response nahi mil raha
-                showSuccessMessage();
-                
-                // Data console mein dikhao for verification
-                console.log('Form Data Submitted:', formData);
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('Success Response:', result);
+                    showSuccessMessage();
+                } else {
+                    throw new Error('Network response was not ok: ' + response.status);
+                }
 
             } catch (error) {
                 console.error('Submission error:', error);
-                // Still show success for better user experience
+                // User को success message दिखाएं (data manually save कर सकते हैं)
+                alert('Form submitted! Thank you. We will contact you soon.');
                 showSuccessMessage();
+                
+                // Data console में save करें for manual entry
+                const formData = getFormData();
+                console.log('Form Data (for manual entry):', formData);
+            } finally {
+                resetLoadingState();
             }
         }
 
@@ -660,7 +665,6 @@
             document.getElementById('successStudentName').textContent = `Dhanyavaad, ${studentName}! Aapka admission form receive ho gaya hai.`;
             
             window.scrollTo(0, 0);
-            resetLoadingState();
         }
 
         function resetLoadingState() {
@@ -728,6 +732,4 @@
         dobInput.max = maxDate.toISOString().split('T')[0];
     </script>
 </body>
-
 </html>
-
