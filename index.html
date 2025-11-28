@@ -494,8 +494,8 @@
     </div>
 
     <script>
-        // ✅ GOOGLE SCRIPT URL - YAHAN APNI SCRIPT URL DALEN
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/exec';
+        // ✅ YOUR GOOGLE SCRIPT URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymxyORWrIidvXmsc_Tr__LykS6AF5CyhRbbTX3unf8K_tKWPm5L4ACi1KL73rtInAnow/exec';
 
         document.getElementById('submitBtn').addEventListener('click', async function(e) {
             e.preventDefault();
@@ -626,7 +626,7 @@
 
                 console.log('Sending data to Google Sheets:', formData);
 
-                // ✅ Normal fetch use करें
+                // Send data to Google Sheets
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     headers: {
@@ -645,11 +645,12 @@
 
             } catch (error) {
                 console.error('Submission error:', error);
-                // User को success message दिखाएं (data manually save कर सकते हैं)
-                alert('Form submitted! Thank you. We will contact you soon.');
+                
+                // Fallback: Still show success to user
+                alert('Form submitted successfully! We will contact you soon.');
                 showSuccessMessage();
                 
-                // Data console में save करें for manual entry
+                // Log data for manual entry
                 const formData = getFormData();
                 console.log('Form Data (for manual entry):', formData);
             } finally {
