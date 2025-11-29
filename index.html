@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guru Computer Education Institute - Admission Form</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- PDF Generation Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
             --primary-blue: #1a2a6c;
@@ -144,6 +146,32 @@
             border-radius: 6px;
             font-size: 14px;
             background: white;
+        }
+
+        .file-upload:hover {
+            border-color: var(--secondary-blue);
+        }
+
+        .file-preview {
+            margin-top: 8px;
+            min-height: 40px;
+        }
+
+        .file-preview img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+
+        .file-preview div {
+            padding: 8px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            font-size: 12px;
+            margin-top: 5px;
         }
 
         .payment-section {
@@ -499,7 +527,6 @@
 
         <!-- Status Message -->
         <div class="status-message" id="statusMessage" style="display: none;"></div>
-        
         <!-- Admission Form -->
         <div class="form-container" id="admissionForm">
             <!-- Debug Info -->
@@ -609,7 +636,7 @@
 
             <!-- Payment Section -->
             <div class="form-section payment-section">
-                <div class="section-title"><i class="fas fa-rupee-sign"></i> Registration Fee - ₹99</div>
+                <div class="section-title"></i> Registration Fee - ₹99</div>
                 
                 <div class="form-group">
                     <label class="required">Select Payment Method</label>
@@ -748,8 +775,8 @@
     </div>
 
     <script>
-        // ✅ Google Script URL - यह user input से लिया जा सकता है
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxoOaUi85P-NfZsxaiz_OmUPu6SeIhN7x5XfRwtec5b/dev';
+        // ✅ STEP 1: अपना Google Script URL यहाँ डालें
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxi7nM2XmxAbsf0MEEo5qp6jUZeYU0MGh1LdvjG7IhK5eyuDZAROPuZc2gWgcideIQX0w/exec';
 
         // Student counter - यह localStorage में save होगा
         let studentCounter = localStorage.getItem('studentCounter') ? parseInt(localStorage.getItem('studentCounter')) : 2000;
@@ -788,6 +815,9 @@
             } else {
                 document.getElementById('upiIdDisplay').style.display = 'none';
             }
+            
+            // Show payment notification
+            document.getElementById('paymentNotification').style.display = 'block';
         }
 
         document.getElementById('submitBtn').addEventListener('click', async function(e) {
@@ -1038,7 +1068,7 @@
             };
         }
 
-        // PDF Download
+        // PDF Download - FIXED VERSION
         document.getElementById('downloadPdfBtn').addEventListener('click', function() {
             generateAndDownloadPDF();
         });
@@ -1140,6 +1170,9 @@
         const today = new Date();
         const maxDate = new Date(today.getFullYear() - 10, today.getMonth(), today.getDate());
         dobInput.max = maxDate.toISOString().split('T')[0];
+
+        // Show payment notification on page load
+        document.getElementById('paymentNotification').style.display = 'block';
     </script>
 </body>
 </html>
