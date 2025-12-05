@@ -1,12 +1,13 @@
-// Main JavaScript File
+// Main JavaScript for Guru Computer Institute Website
+
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    // ===== MOBILE MENU TOGGLE =====
+    const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
     
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', function() {
+    if (menuToggle) {
+        menuToggle.addEventListener('click', function() {
             navMenu.classList.toggle('active');
             this.innerHTML = navMenu.classList.contains('active') 
                 ? '<i class="fas fa-times"></i>' 
@@ -16,15 +17,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Close mobile menu when clicking outside
     document.addEventListener('click', function(event) {
-        if (!event.target.closest('.main-nav') && navMenu.classList.contains('active')) {
+        if (!event.target.closest('.navbar') && navMenu.classList.contains('active')) {
             navMenu.classList.remove('active');
-            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
         }
     });
     
-    // Smooth scrolling for anchor links
+    // ===== SMOOTH SCROLLING =====
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+        anchor.addEventListener('click', function(e) {
             e.preventDefault();
             
             const targetId = this.getAttribute('href');
@@ -40,13 +41,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Close mobile menu if open
                 if (navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
                 }
             }
         });
     });
     
-    // Admission Form Submission
+    // ===== ADMISSION FORM SUBMISSION =====
     const admissionForm = document.getElementById('admissionForm');
     if (admissionForm) {
         admissionForm.addEventListener('submit', function(e) {
@@ -56,80 +57,228 @@ document.addEventListener('DOMContentLoaded', function() {
             const formData = new FormData(this);
             const formObject = Object.fromEntries(formData.entries());
             
+            // Validate form
+            if (!formObject.name || !formObject.mobile || !formObject.course) {
+                alert('Please fill all required fields (*)');
+                return;
+            }
+            
             // Create WhatsApp message
-            const whatsappMessage = `🎓 *NEW ADMISSION FORM SUBMISSION* 🎓
+            const whatsappMessage = `🎓 *NEW ADMISSION FORM - GURU COMPUTER INSTITUTE* 🎓
 
-*Name:* ${formObject.name}
-*Mobile:* ${formObject.mobile}
-*Email:* ${formObject.email || 'Not provided'}
-*Course:* ${formObject.course}
-*Qualification:* ${formObject.qualification || 'Not provided'}
-*Batch:* ${formObject.batch || 'Not specified'}
-*Message:* ${formObject.message || 'No message'}
+📛 *Name:* ${formObject.name}
+📱 *Mobile:* ${formObject.mobile}
+📧 *Email:* ${formObject.email || 'Not provided'}
+🎯 *Course:* ${formObject.course}
+⏰ *Batch:* ${formObject.batch || 'Not specified'}
+💬 *Message:* ${formObject.message || 'No message'}
 
-*Institute:* Guru Computer Education Institute
-*Submission Time:* ${new Date().toLocaleString('hi-IN')}
+📍 *Institute:* Guru Computer Education Institute
+📌 *Location:* Bilha, Bilaspur (C.G.)
+🕒 *Submission Time:* ${new Date().toLocaleString('hi-IN')}
 
-Please contact the student for further process.`;
+Please contact this student for admission process.`;
 
-            // Encode for WhatsApp
+            // Encode for WhatsApp URL
             const encodedMessage = encodeURIComponent(whatsappMessage);
             const whatsappUrl = `https://wa.me/919244240484?text=${encodedMessage}`;
             
-            // Open WhatsApp in new tab
+            // Open WhatsApp
             window.open(whatsappUrl, '_blank');
             
             // Show success message
-            showNotification('✅ Admission form submitted successfully! Our team will contact you shortly.');
+            showNotification('✅ Admission form submitted successfully! We will contact you soon.');
             
             // Reset form
             this.reset();
         });
     }
     
-    // Newsletter Form
-    const newsletterForm = document.querySelector('.newsletter-form');
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
+    // ===== COURSE ENROLLMENT BUTTONS =====
+    const courseButtons = document.querySelectorAll('.course-btn');
+    const courseModal = document.getElementById('courseModal');
+    const modalCourseTitle = document.getElementById('modalCourseTitle');
+    const modalCourseDesc = document.getElementById('modalCourseDesc');
+    const modalCourseFee = document.getElementById('modalCourseFee');
+    const modalClose = document.querySelector('.modal-close');
+    
+    // Course data
+    const courses = {
+        'Tally Prime GST': {
+            desc: 'Complete accounting course with GST implementation, billing, inventory management and tax filing. Learn Tally Prime from basics to advanced level.',
+            fee: '₹5,000',
+            duration: '3 Months'
+        },
+        'DCA Course': {
+            desc: 'Diploma in Computer Applications - Complete computer knowledge including MS Office, Internet, Basic Programming, and Tally.',
+            fee: '₹8,000',
+            duration: '6 Months'
+        },
+        'MS Office': {
+            desc: 'Master Microsoft Word, Excel, PowerPoint for office jobs. Learn document creation, data analysis, presentations and professional reporting.',
+            fee: '₹4,500',
+            duration: '3 Months'
+        },
+        'Basic Computer': {
+            desc: 'Computer fundamentals from scratch. Learn Windows operating system, file management, internet browsing, email and basic troubleshooting.',
+            fee: '₹3,000',
+            duration: '2 Months'
+        },
+        'Photoshop': {
+            desc: 'Adobe Photoshop for graphic design, photo editing, digital art creation. Learn professional design techniques for social media and business.',
+            fee: '₹4,000',
+            duration: '2 Months'
+        },
+        'AI ChatGPT': {
+            desc: 'Artificial Intelligence and ChatGPT course. Learn prompt engineering, AI tools for content creation, coding assistance and business applications.',
+            fee: '₹3,500',
+            duration: '1 Month'
+        },
+        'Typing': {
+            desc: 'English and Hindi typing course. Learn touch typing with speed and accuracy. Essential skill for data entry jobs and office work.',
+            fee: '₹2,000',
+            duration: '1 Month'
+        },
+        'PGDCA Course': {
+            desc: 'Post Graduate Diploma in Computer Applications. Advanced computer training for graduates. Includes programming, database management and web development.',
+            fee: '₹12,000',
+            duration: '1 Year'
+        }
+    };
+    
+    // Add click event to course buttons
+    courseButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const courseName = this.getAttribute('data-course');
+            const course = courses[courseName];
             
-            // Simple validation
-            if (email && email.includes('@')) {
-                showNotification('✅ Thank you for subscribing to our newsletter!');
-                this.reset();
-            } else {
-                showNotification('⚠️ Please enter a valid email address.', 'error');
+            if (course) {
+                modalCourseTitle.textContent = courseName;
+                modalCourseDesc.textContent = course.desc;
+                modalCourseFee.textContent = course.fee;
+                
+                // Store current course for enrollment
+                currentCourse = courseName;
+                
+                // Show modal
+                courseModal.style.display = 'flex';
             }
+        });
+    });
+    
+    // Close modal
+    if (modalClose) {
+        modalClose.addEventListener('click', function() {
+            courseModal.style.display = 'none';
         });
     }
     
-    // Testimonials Auto Scroll
-    function initTestimonials() {
-        const testimonials = document.querySelectorAll('.testimonial-card');
-        if (testimonials.length > 1) {
-            let currentIndex = 0;
-            
-            setInterval(() => {
-                testimonials.forEach((card, index) => {
-                    card.style.transform = index === currentIndex 
-                        ? 'scale(1.05)' 
-                        : 'scale(1)';
-                    card.style.boxShadow = index === currentIndex
-                        ? '0 10px 30px rgba(0,0,0,0.2)'
-                        : '0 2px 10px rgba(0,0,0,0.1)';
-                });
-                
-                currentIndex = (currentIndex + 1) % testimonials.length;
-            }, 5000);
+    // Close modal when clicking outside
+    courseModal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            courseModal.style.display = 'none';
         }
+    });
+    
+    // ===== VIEW ALL COURSES BUTTON =====
+    const viewAllBtn = document.getElementById('viewAllCourses');
+    if (viewAllBtn) {
+        viewAllBtn.addEventListener('click', function() {
+            const allCourses = Object.keys(courses).map(course => 
+                `• ${course}: ${courses[course].fee} (${courses[course].duration})`
+            ).join('\n');
+            
+            const message = `📚 *ALL COURSES LIST - GURU COMPUTER INSTITUTE* 📚\n\n${allCourses}\n\nPlease let me know which course you are interested in.`;
+            
+            const whatsappUrl = `https://wa.me/919244240484?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        });
     }
     
-    initTestimonials();
+    // ===== NOTIFICATION FUNCTION =====
+    function showNotification(message, type = 'success') {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = 'notification-popup';
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                <span>${message}</span>
+            </div>
+        `;
+        
+        // Add styles
+        notification.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            background: ${type === 'success' ? '#4CAF50' : '#FF9800'};
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+            max-width: 400px;
+        `;
+        
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        document.body.appendChild(notification);
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 5000);
+    }
     
-    // Counter Animation
-    function initCounters() {
-        const counters = document.querySelectorAll('.stat h3');
+    // ===== ACTIVE NAV LINK HIGHLIGHT =====
+    function highlightNavLink() {
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        
+        window.addEventListener('scroll', function() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollY >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    }
+    
+    highlightNavLink();
+    
+    // ===== COUNTER ANIMATION =====
+    function animateCounters() {
+        const counters = document.querySelectorAll('.stat-box h3');
         
         counters.forEach(counter => {
             const target = parseInt(counter.textContent.replace('+', ''));
@@ -146,7 +295,7 @@ Please contact the student for further process.`;
                 }
             };
             
-            // Start counter when element is in viewport
+            // Start when in viewport
             const observer = new IntersectionObserver((entries) => {
                 if (entries[0].isIntersecting) {
                     updateCounter();
@@ -158,104 +307,12 @@ Please contact the student for further process.`;
         });
     }
     
-    initCounters();
+    animateCounters();
     
-    // Course Card Hover Effects
-    const courseCards = document.querySelectorAll('.course-card');
-    courseCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
-    });
-    
-    // Notification Function
-    function showNotification(message, type = 'success') {
-        // Remove existing notification
-        const existingNotification = document.querySelector('.custom-notification');
-        if (existingNotification) {
-            existingNotification.remove();
-        }
-        
-        // Create notification
-        const notification = document.createElement('div');
-        notification.className = `custom-notification ${type}`;
-        notification.innerHTML = `
-            <div class="notification-content">
-                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-                <span>${message}</span>
-            </div>
-            <button class="notification-close">&times;</button>
-        `;
-        
-        // Add styles
-        notification.style.cssText = `
-            position: fixed;
-            top: 100px;
-            right: 30px;
-            background: ${type === 'success' ? '#4CAF50' : '#ff9800'};
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            z-index: 9999;
-            animation: slideIn 0.3s ease;
-            max-width: 400px;
-        `;
-        
-        // Add CSS for animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            .notification-content {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-            .notification-close {
-                background: none;
-                border: none;
-                color: white;
-                font-size: 20px;
-                cursor: pointer;
-                padding: 0;
-                line-height: 1;
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // Close button functionality
-        notification.querySelector('.notification-close').addEventListener('click', function() {
-            notification.style.animation = 'slideOut 0.3s ease';
-            setTimeout(() => notification.remove(), 300);
-        });
-        
-        // Auto remove after 5 seconds
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }
-        }, 5000);
-        
-        document.body.appendChild(notification);
-    }
-    
-    // WhatsApp Direct Chat
-    const whatsappButtons = document.querySelectorAll('.whatsapp-btn, .whatsapp-float');
-    whatsappButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            if (!this.getAttribute('href').includes('wa.me')) {
+    // ===== WHATSAPP DIRECT CHAT =====
+    document.querySelectorAll('.whatsapp-btn, .float-whatsapp').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            if (!this.href.includes('wa.me')) {
                 e.preventDefault();
                 const message = "Hello Guru Computer Institute, I'm interested in your courses. Can you please share more details?";
                 const whatsappUrl = `https://wa.me/919244240484?text=${encodeURIComponent(message)}`;
@@ -264,91 +321,65 @@ Please contact the student for further process.`;
         });
     });
     
-    // Load Google Maps
-    function loadGoogleMaps() {
-        const mapFrame = document.querySelector('.map-container iframe');
-        if (mapFrame) {
-            // Add loading state
-            mapFrame.addEventListener('load', function() {
-                this.style.opacity = '1';
-            });
-        }
-    }
-    
-    loadGoogleMaps();
-    
-    // Add active class to current page in navigation
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    
-    navLinks.forEach(link => {
-        const linkPage = link.getAttribute('href');
-        if (linkPage === currentPage || (currentPage === '' && linkPage === 'index.html')) {
-            link.classList.add('active');
-        }
-    });
-    
-    // Lazy Load Images
+    // ===== LAZY LOAD IMAGES =====
     const images = document.querySelectorAll('img');
     const imageObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
-                img.src = img.dataset.src || img.src;
+                const src = img.getAttribute('data-src');
+                if (src) {
+                    img.src = src;
+                }
                 imageObserver.unobserve(img);
             }
         });
     });
     
     images.forEach(img => {
-        if (!img.src) {
+        if (img.getAttribute('data-src')) {
             imageObserver.observe(img);
         }
     });
     
-    // Form Validation
-    function validateForm(form) {
-        let isValid = true;
-        const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
-        
-        inputs.forEach(input => {
-            if (!input.value.trim()) {
-                isValid = false;
-                input.style.borderColor = '#ff4444';
-            } else {
-                input.style.borderColor = '';
-            }
-        });
-        
-        return isValid;
-    }
 });
 
-// Export data for other pages
-window.instituteData = {
+// ===== GLOBAL FUNCTIONS FOR MODAL =====
+let currentCourse = '';
+
+function enrollCourse() {
+    if (!currentCourse) return;
+    
+    const message = `I want to enroll in ${currentCourse} course. Please share the admission process and fee details.`;
+    const whatsappUrl = `https://wa.me/919244240484?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    
+    // Close modal
+    document.getElementById('courseModal').style.display = 'none';
+}
+
+function whatsappQuery() {
+    if (!currentCourse) return;
+    
+    const message = `I have query about ${currentCourse} course. Please share syllabus, duration, fees and career opportunities.`;
+    const whatsappUrl = `https://wa.me/919244240484?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    
+    // Close modal
+    document.getElementById('courseModal').style.display = 'none';
+}
+
+// ===== INSTITUTE DATA =====
+window.instituteInfo = {
     name: "Guru Computer Education Institute",
     address: "Near Police Station, Dagori Road, Bilha, Bilaspur (C.G.) - 495224",
     phone: "9244240484",
+    whatsapp: "919244240484",
     email: "info.gceiofficial@gmail.com",
-    courses: [
-        { id: "basic", name: "Basic Computer", duration: "2 Months", fee: "₹3,000" },
-        { id: "office", name: "MS Office", duration: "3 Months", fee: "₹4,500" },
-        { id: "tally", name: "Tally Prime GST", duration: "3 Months", fee: "₹5,000" },
-        { id: "dca", name: "DCA Course", duration: "6 Months", fee: "₹8,000" },
-        { id: "pgdca", name: "PGDCA Course", duration: "1 Year", fee: "₹12,000" },
-        { id: "typing", name: "Typing", duration: "1 Month", fee: "₹2,000" },
-        { id: "photoshop", name: "Photoshop", duration: "2 Months", fee: "₹4,000" },
-        { id: "canva", name: "Canva Design", duration: "1 Month", fee: "₹3,000" },
-        { id: "ai", name: "AI ChatGPT", duration: "1 Month", fee: "₹3,500" },
-        { id: "ccc", name: "CCC Course", duration: "2 Months", fee: "₹3,500" },
-        { id: "internet", name: "Internet & Email", duration: "1 Month", fee: "₹2,500" }
-    ],
     social: {
         facebook: "https://www.facebook.com/gceiofficial/",
         instagram: "https://www.instagram.com/gceiofficial/",
         youtube: "https://www.youtube.com/channel/UCebEVcrSsWWxWr2qVGRLk6w",
-        whatsapp: "https://wa.me/919244240484",
-        location: "https://maps.app.goo.gl/sYdLaS4EFBz9a4go6",
-        justdial: "https://jsdl.in/DT-99QYUEQ2AEE"
+        location: "https://maps.app.goo.gl/sYdLaS4EFBz9a4go6"
     }
 };
