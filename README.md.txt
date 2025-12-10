@@ -1,11 +1,10 @@
-# Guru Computer Education Institute Website
-
-## 📁 Project Structure
-
 guru-computer-institute/
-├── index.html # Main homepage
-├── about.html # About us page
-├── courses.html # Courses listing page
-├── admission.html # Admission page
-├── contact.html # Contact us page
-└── README.md # Documentation
+├── index.html          # Home Page
+├── about.html          # About Us Page
+├── courses.html        # Courses Page
+├── admission.html      # Admission Page
+├── contact.html        # Contact Page
+├── css/
+│   └── style.css      # All CSS Styles
+└── js/
+    └── main.js        # All JavaScript Functions
