@@ -4,227 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admission - Guru Computer Education Institute</title>
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Page Specific CSS -->
     <style>
-        /* Same base styles as index.html */
-        :root {
-            --primary-color: #004d40;
-            --secondary-color: #00796b;
-            --accent-color: #ff9800;
-            --light-color: #e0f2f1;
-            --dark-color: #00251a;
-            --text-color: #333;
-            --white: #ffffff;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        section {
-            padding: 80px 0;
-        }
-
-        /* Header & Navigation - Same as index.html */
-        .top-bar {
-            background: var(--dark-color);
-            color: var(--white);
-            padding: 10px 0;
-            font-size: 14px;
-        }
-
-        .top-bar-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .contact-info span {
-            margin-right: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .social-links a {
-            color: var(--white);
-            margin-left: 15px;
-            font-size: 16px;
-        }
-
-        .social-links a:hover {
-            color: var(--accent-color);
-        }
-
-        .main-nav {
-            background: var(--white);
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
-
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .logo-text h1 {
-            font-size: 1.5rem;
-            margin: 0;
-            color: var(--primary-color);
-        }
-
-        .logo-text p {
-            font-size: 0.9rem;
-            margin: 0;
-            color: var(--secondary-color);
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 5px;
-            list-style: none;
-        }
-
-        .nav-menu > li {
-            position: relative;
-        }
-
-        .nav-menu > li > a {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            padding: 10px 15px;
-            color: var(--text-color);
-            font-weight: 500;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: var(--transition);
-        }
-
-        .nav-menu > li > a:hover,
-        .nav-menu > li > a.active {
-            background: var(--light-color);
-            color: var(--primary-color);
-        }
-
-        .nav-actions {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .call-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 15px;
-            background: var(--secondary-color);
-            color: var(--white);
-            border-radius: 25px;
-            font-weight: 500;
-            text-decoration: none;
-        }
-
-        .call-btn:hover {
-            background: var(--primary-color);
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: var(--primary-color);
-            color: var(--white);
-            border-radius: 5px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .btn-primary:hover {
-            background: var(--dark-color);
-            transform: translateY(-2px);
-        }
-
-        .mobile-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 4px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .mobile-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--primary-color);
-            transition: var(--transition);
-        }
-
-        /* Page Hero */
-        .page-hero {
-            background: linear-gradient(rgba(0, 77, 64, 0.8), rgba(0, 77, 64, 0.9));
-            color: var(--white);
-            padding: 100px 0;
-            text-align: center;
-        }
-
-        .page-hero h1 {
-            color: var(--white);
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .page-hero p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
         /* Admission Process */
         .admission-process {
             background: var(--light-color);
@@ -279,72 +70,6 @@
             padding: 40px;
             border-radius: 10px;
             box-shadow: var(--shadow);
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--primary-color);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px;
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(0, 77, 64, 0.1);
-        }
-
-        .form-select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px;
-            background: var(--white);
-            cursor: pointer;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: var(--primary-color);
-            color: var(--white);
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .submit-btn:hover {
-            background: var(--dark-color);
-            transform: translateY(-2px);
         }
 
         /* Required Documents */
@@ -406,158 +131,24 @@
             background: var(--light-color);
         }
 
-        /* Footer - Same as index.html */
-        .main-footer {
-            background: var(--dark-color);
-            color: var(--white);
-            padding: 60px 0 20px;
+        .fee-table tr:last-child td {
+            border-bottom: none;
         }
 
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .footer-logo .logo-icon {
-            width: 40px;
-            height: 40px;
-            font-size: 20px;
-        }
-
-        .footer-logo h3 {
-            color: var(--white);
-            margin: 0;
-            font-size: 1.2rem;
-        }
-
-        .footer-logo p {
-            color: #aaa;
-            margin: 0;
-            font-size: 0.9rem;
-        }
-
-        .footer-col h4 {
-            color: var(--white);
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-        }
-
-        .footer-col ul {
-            list-style: none;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-col ul li a {
-            color: #ddd;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-col ul li a:hover {
-            color: var(--accent-color);
-            padding-left: 5px;
-        }
-
-        .contact-info li {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .contact-info i {
-            color: var(--accent-color);
-            margin-top: 3px;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .footer-social a {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-social a:hover {
-            background: var(--accent-color);
-            transform: translateY(-3px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #aaa;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            .top-bar-content {
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
-            }
-
-            .mobile-toggle {
-                display: flex;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 120px;
-                left: -100%;
-                width: 80%;
-                height: calc(100vh - 120px);
-                background: var(--white);
-                flex-direction: column;
-                padding: 20px;
-                transition: var(--transition);
-                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-                z-index: 1000;
-            }
-
-            .nav-menu.active {
-                left: 0;
-            }
-
-            .nav-actions {
-                display: none;
-            }
-
-            .page-hero h1 {
-                font-size: 2rem;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
             .documents-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .process-step {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .fee-table {
+                display: block;
+                overflow-x: auto;
             }
         }
     </style>
@@ -637,7 +228,7 @@
     <!-- Admission Process -->
     <section class="admission-process">
         <div class="container">
-            <h2 class="section-title" style="text-align: center; margin-bottom: 50px;">Admission Procedure</h2>
+            <h2 class="section-title">Admission Procedure</h2>
             
             <div class="process-steps">
                 <div class="process-step">
@@ -686,7 +277,7 @@
     <!-- Admission Form -->
     <section id="admission-form" class="admission-form-section">
         <div class="container">
-            <h2 class="section-title" style="text-align: center; margin-bottom: 50px;">Admission Form</h2>
+            <h2 class="section-title">Admission Form</h2>
             
             <div class="form-container">
                 <form id="admissionForm">
@@ -763,7 +354,7 @@
     <!-- Required Documents -->
     <section class="documents-section">
         <div class="container">
-            <h2 class="section-title" style="text-align: center; margin-bottom: 50px;">Required Documents</h2>
+            <h2 class="section-title">Required Documents</h2>
             
             <div class="documents-grid">
                 <div class="document-card">
@@ -804,7 +395,7 @@
     <!-- Fee Structure -->
     <section class="fee-structure">
         <div class="container">
-            <h2 class="section-title" style="text-align: center; margin-bottom: 50px;">Course Fee Structure</h2>
+            <h2 class="section-title">Course Fee Structure</h2>
             
             <table class="fee-table">
                 <thead>
@@ -884,21 +475,21 @@
                     </div>
                     <p>Providing quality computer education since 2015 in Bilha, Bilaspur (C.G.)</p>
                     <div class="footer-social">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.facebook.com/gceiofficial/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/gceiofficial/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/919244240484" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.youtube.com/channel/UCebEVcrSsWWxWr2qVGRLk6w" target="_blank"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
 
                 <div class="footer-col">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="courses.html">Courses</a></li>
-                        <li><a href="admission.html">Admission</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="courses.html"><i class="fas fa-chevron-right"></i> Courses</a></li>
+                        <li><a href="admission.html"><i class="fas fa-chevron-right"></i> Admission</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
                     </ul>
                 </div>
 
@@ -915,132 +506,23 @@
                 <div class="footer-col">
                     <h4>Batch Timings</h4>
                     <ul>
-                        <li>Morning: 9:00 AM - 12:00 PM</li>
-                        <li>Evening: 4:00 PM - 7:00 PM</li>
-                        <li>Weekend: 10:00 AM - 4:00 PM</li>
+                        <li><i class="far fa-clock"></i> Morning: 7:00 AM - 8:00 AM</li>
+			<li><i class="far fa-clock"></i> Morning: 8:00 AM - 9:00 AM</li>
+			<li><i class="far fa-clock"></i> Morning: 10:00 AM - 11:00 AM</li>
+                        <li><i class="far fa-clock"></i> Evening: 5:00 PM - 6:00 PM</li>
+                        <li><i class="far fa-clock"></i> Weekend: 10:00 AM - 12:00 PM</li>
                     </ul>
                 </div>
             </div>
 
             <div class="footer-bottom">
                 <p>&copy; 2024 Guru Computer Education Institute. All rights reserved.</p>
-                <p>Designed with <i class="fas fa-heart"></i> for quality education</p>
+                <p>Designed with <i class="fas fa-heart" style="color: #ff9800;"></i> for quality education</p>
             </div>
         </div>
     </footer>
 
-    <script>
-        // Mobile Menu Toggle
-        const mobileToggle = document.getElementById('mobileToggle');
-        const navMenu = document.querySelector('.nav-menu');
-        
-        if (mobileToggle && navMenu) {
-            mobileToggle.addEventListener('click', function() {
-                navMenu.classList.toggle('active');
-                
-                const spans = this.querySelectorAll('span');
-                if (navMenu.classList.contains('active')) {
-                    spans[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
-                    spans[1].style.opacity = '0';
-                    spans[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
-                } else {
-                    spans[0].style.transform = 'none';
-                    spans[1].style.opacity = '1';
-                    spans[2].style.transform = 'none';
-                }
-            });
-            
-            document.addEventListener('click', function(event) {
-                if (!navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
-                    navMenu.classList.remove('active');
-                    const spans = mobileToggle.querySelectorAll('span');
-                    spans[0].style.transform = 'none';
-                    spans[1].style.opacity = '1';
-                    spans[2].style.transform = 'none';
-                }
-            });
-        }
-
-        // Admission Form Submission
-        const admissionForm = document.getElementById('admissionForm');
-        
-        if (admissionForm) {
-            admissionForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Get form values
-                const name = document.getElementById('name').value;
-                const mobile = document.getElementById('mobile').value;
-                const email = document.getElementById('email').value;
-                const course = document.getElementById('course').value;
-                const qualification = document.getElementById('qualification').value;
-                const batch = document.getElementById('batch').value;
-                const message = document.getElementById('message').value;
-                
-                // Validation
-                if (!name || !mobile || !course) {
-                    alert('Please fill all required fields (Name, Mobile, Course)');
-                    return;
-                }
-                
-                if (!/^\d{10}$/.test(mobile)) {
-                    alert('Please enter a valid 10-digit mobile number');
-                    return;
-                }
-                
-                // Create WhatsApp message
-                const whatsappMessage = `🎓 *ADMISSION FORM SUBMISSION* 🎓
-
-*Name:* ${name}
-*Mobile:* ${mobile}
-*Email:* ${email || 'Not provided'}
-*Course:* ${course}
-*Qualification:* ${qualification || 'Not provided'}
-*Batch:* ${batch || 'Not selected'}
-*Message:* ${message || 'No message'}
-
-*Institute:* Guru Computer Education Institute
-*Location:* Bilha, Bilaspur (C.G.)
-*Submission Time:* ${new Date().toLocaleString('hi-IN')}`;
-                
-                // Encode message
-                const encodedMessage = encodeURIComponent(whatsappMessage);
-                const whatsappUrl = `https://wa.me/919244240484?text=${encodedMessage}`;
-                
-                // Open WhatsApp
-                window.open(whatsappUrl, '_blank');
-                
-                // Show success message
-                alert('✅ Admission form submitted successfully!\n\nYou will be redirected to WhatsApp to complete the process.');
-                
-                // Reset form
-                this.reset();
-            });
-        }
-
-        // Smooth scroll to form
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                
-                if (href === '#' || href.startsWith('#!')) return;
-                
-                e.preventDefault();
-                
-                const targetId = href.substring(1);
-                const targetElement = document.getElementById(targetId);
-                
-                if (targetElement) {
-                    const headerHeight = document.querySelector('.main-nav').offsetHeight;
-                    const targetPosition = targetElement.offsetTop - headerHeight - 20;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
 </body>
 </html>
