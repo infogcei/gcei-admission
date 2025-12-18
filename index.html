@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guru Computer Education Institute - Bilha, Bilaspur (C.G.) | गुरु कंप्यूटर एजुकेशन इंस्टीट्यूट</title>
     <meta name="description" content="Guru Computer Education Institute, Bilha, Bilaspur (C.G.) – Since 2015. Basic Computer, MS Office, Tally, DCA, PGDCA, Typing, Photoshop, Canva, AI ChatGPT और अन्य प्रोफेशनल कंप्यूटर कोर्स।">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <style>
         * {
             margin: 0;
@@ -48,6 +48,98 @@
             font-size: 0.9em;
             color: #666;
             font-style: italic;
+        }
+
+        /* ===== UPDATED LOGO SECTION ===== */
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 10px;
+            text-decoration: none !important;
+            color: inherit;
+        }
+
+        .logo-section:hover {
+            background: rgba(0, 77, 64, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .logo-section:active {
+            transform: translateY(0);
+        }
+
+        .logo-icon {
+            background: white;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0, 77, 64, 0.2);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid #e0f2f1;
+        }
+
+        .logo-section:hover .logo-icon {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 77, 64, 0.3);
+            border-color: #00796b;
+        }
+
+        .logo-icon img {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+            transition: all 0.3s ease;
+        }
+
+        .logo-section:hover .logo-icon img {
+            transform: scale(1.08);
+        }
+
+        .logo-icon i {
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .logo-section:hover .logo-icon i {
+            transform: scale(1.1);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #004d40;
+            transition: color 0.3s ease;
+        }
+
+        .logo-section:hover .logo-text h1 {
+            color: #00796b;
+        }
+
+        .logo-text p {
+            font-size: 14px;
+            color: #00796b;
+            margin-top: 3px;
+            font-weight: 500;
         }
 
         /* ===== TOP OFFER BAR ===== */
@@ -107,38 +199,6 @@
             padding: 15px 5%;
             background: white;
             border-bottom: 1px solid rgba(0, 77, 64, 0.1);
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-icon {
-            background: #004d40;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .logo-text h1 {
-            font-size: 24px;
-            font-weight: 800;
-            line-height: 1.2;
-            color: #004d40;
-        }
-
-        .logo-text p {
-            font-size: 14px;
-            color: #00796b;
-            margin-top: 3px;
         }
 
         .header-contact {
@@ -1694,15 +1754,19 @@
     <!-- HEADER -->
     <header class="main-header">
         <div class="header-top">
-            <div class="logo-section">
+            <!-- FIXED LOGO WITH IMGBB LINK -->
+            <a href="#home" class="logo-section" id="logoLink">
                 <div class="logo-icon">
-                    <i class="fas fa-laptop-code"></i>
+                    <!-- Your ImgBB Logo Link -->
+                    <img src="https://i.ibb.co/7dw5DKhK/Guru-Computer-Logo-2.png" 
+                         alt="Guru Computer Education Institute Logo"
+                         style="width:100%; height:100%; object-fit:contain;">
                 </div>
                 <div class="logo-text">
                     <h1>Guru Computer Education Institute</h1>
                     <p>Bilha, Bilaspur (C.G.) • Since 2015</p>
                 </div>
-            </div>
+            </a>
             
             <div class="header-contact">
                 <div class="contact-item">
@@ -2637,6 +2701,98 @@ I have query about this course. Please share more details about syllabus, career
         // Testimonials array to store submitted reviews
         let submittedTestimonials = [];
 
+        // ==================== F5 KEYPRESS HANDLER ====================
+        // Function to handle F5 key press - Scroll to Home
+        function handleF5KeyPress(e) {
+            // Check if F5 key (keyCode 116) is pressed
+            if (e.keyCode === 116) {
+                // Prevent default browser refresh
+                e.preventDefault();
+                
+                // Scroll to home section
+                const homeSection = document.getElementById('home');
+                if (homeSection) {
+                    window.scrollTo({
+                        top: homeSection.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active nav link
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    document.querySelector('.nav-link[href="#home"]').classList.add('active');
+                }
+                
+                // Show notification
+                showF5Notification();
+                
+                return false;
+            }
+        }
+
+        // Function to show F5 notification
+        function showF5Notification() {
+            const notification = document.createElement('div');
+            notification.innerHTML = `
+                <i class="fas fa-home"></i>
+                Home Section पर Navigated | Navigated to Home Section
+            `;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: linear-gradient(135deg, #004d40 0%, #00796b 100%);
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                z-index: 9999;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                animation: slideInRight 0.5s ease, fadeOutUp 0.5s ease 2s;
+                max-width: 300px;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 2500);
+        }
+
+        // ==================== LOGO CLICK HANDLER ====================
+        // Function to handle logo click - Scroll to Home
+        function handleLogoClick(e) {
+            e.preventDefault();
+            
+            const homeSection = document.getElementById('home');
+            if (homeSection) {
+                window.scrollTo({
+                    top: homeSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Update active nav link
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                document.querySelector('.nav-link[href="#home"]').classList.add('active');
+                
+                // Close mobile menu if open
+                const navList = document.getElementById('navList');
+                const mobileBtn = document.getElementById('mobileMenuBtn');
+                if (navList.classList.contains('active')) {
+                    navList.classList.remove('active');
+                    mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            }
+        }
+
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             initializePage();
@@ -2650,6 +2806,15 @@ I have query about this course. Please share more details about syllabus, career
             
             // Setup character counter for testimonial textarea
             setupCharacterCounter();
+            
+            // Add F5 keypress listener
+            document.addEventListener('keydown', handleF5KeyPress);
+            
+            // Add logo click listener
+            const logoLink = document.getElementById('logoLink');
+            if (logoLink) {
+                logoLink.addEventListener('click', handleLogoClick);
+            }
             
             // Performance optimization
             optimizePerformance();
@@ -2667,34 +2832,36 @@ I have query about this course. Please share more details about syllabus, career
 
             // Smooth scrolling for navigation
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if(targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if(targetElement) {
-                        // Close mobile menu if open
-                        const navList = document.getElementById('navList');
-                        const mobileBtn = document.getElementById('mobileMenuBtn');
-                        if(navList.classList.contains('active')) {
-                            navList.classList.remove('active');
-                            mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                if (anchor.id !== 'logoLink') { // Skip logo link as it has its own handler
+                    anchor.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        const targetId = this.getAttribute('href');
+                        if(targetId === '#') return;
+                        
+                        const targetElement = document.querySelector(targetId);
+                        if(targetElement) {
+                            // Close mobile menu if open
+                            const navList = document.getElementById('navList');
+                            const mobileBtn = document.getElementById('mobileMenuBtn');
+                            if(navList.classList.contains('active')) {
+                                navList.classList.remove('active');
+                                mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                            }
+                            
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                            
+                            // Update active nav link
+                            document.querySelectorAll('.nav-link').forEach(link => {
+                                link.classList.remove('active');
+                            });
+                            this.classList.add('active');
                         }
-                        
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Update active nav link
-                        document.querySelectorAll('.nav-link').forEach(link => {
-                            link.classList.remove('active');
-                        });
-                        this.classList.add('active');
-                    }
-                });
+                    });
+                }
             });
 
             // Back to top button
@@ -3356,9 +3523,28 @@ I'm interested in computer courses. Please contact me for more details.
                     transform: translateX(100%);
                 }
             }
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes fadeOutUp {
+                from {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+            }
         `;
         document.head.appendChild(style);
     </script>
 </body>
 </html>
-
