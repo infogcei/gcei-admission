@@ -1520,6 +1520,7 @@
                 width: 100%;
                 background: #004d40;
                 box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
             }
             
             .nav-list.active {
@@ -1705,15 +1706,16 @@
             
             <div class="header-contact">
                 <div class="contact-item">
-                    
+                    <i class="fas fa-clock"></i>
+                    <span>9AM - 7PM</span>
                 </div>
-                <button class="call-now-btn" onclick="window.location.href='tel:9244240484'">
+                <button class="call-now-btn" onclick="window.location.href='tel:919244240484'">
                     <i class="fas fa-phone"></i>
-                     
+                    92442 40484
                 </button>
                 <a href="https://wa.me/919244240484" class="whatsapp-header-btn" target="_blank">
                     <i class="fab fa-whatsapp"></i>
-                    
+                    WhatsApp पर बात करें
                 </a>
             </div>
         </div>
@@ -1767,7 +1769,7 @@
                     <i class="fas fa-calendar-alt"></i>
                     फ्री डेमो बुक करें | Book Free Demo
                 </a>
-                <a href="tel:9244240484" class="hero-btn secondary">
+                <a href="tel:919244240484" class="hero-btn secondary">
                     <i class="fas fa-phone-alt"></i>
                     एडमिशन के लिए कॉल करें | Call For Admission
                 </a>
@@ -2256,7 +2258,7 @@
             <div class="footer-column">
                 <h3>संपर्क जानकारी | Contact Info</h3>
                 <ul class="footer-links">
-                    <li><a href="tel:9244240484"><i class="fas fa-phone-alt"></i> 92442 40484</a></li>
+                    <li><a href="tel:919244240484"><i class="fas fa-phone-alt"></i> 92442 40484</a></li>
                     <li><a href="mailto:info.gceiofficial@gmail.com"><i class="fas fa-envelope"></i> info.gceiofficial@gmail.com</a></li>
                     <li><a href="https://maps.app.goo.gl/sYdLaS4EFBz9a4go6" target="_blank"><i class="fas fa-map-marker-alt"></i> पुलिस स्टेशन के पास, डागोरी रोड, बिल्हा <Br> Near Police Station, Dagori Road, Bilha</a></li>
                     <li><a href="tel:8349902843"><i class="fas fa-phone-alt"></i> 83499 02843 (संदीप जांगडे | Sandeep Jangde)</a></li>
@@ -2276,6 +2278,74 @@
     </a>
 
     <script>
+        // ==================== GLOBAL HELPER FUNCTIONS ====================
+        function getInitials(name) {
+            if (!name || name.trim() === '') return "GU";
+            return name.split(' ')
+                .map(word => word.charAt(0))
+                .join('')
+                .toUpperCase()
+                .substring(0, 2);
+        }
+
+        function getRelativeTime(timestamp) {
+            if (!timestamp) return "अभी | Just now";
+            const now = new Date();
+            const past = new Date(timestamp);
+            const diffMs = now - past;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            
+            if (diffMins < 60) return `${diffMins} मिनट पहले | ${diffMins} minutes ago`;
+            if (diffHours < 24) return `${diffHours} घंटे पहले | ${diffHours} hours ago`;
+            return past.toLocaleDateString('hi-IN') + ' | ' + past.toLocaleDateString('en-IN');
+        }
+
+        function closeCourseModal() {
+            document.getElementById('courseModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function bookDemo(courseId) {
+            const course = coursesData[courseId];
+            if (!course) return;
+            
+            const message = `🎓 *DEMO CLASS REQUEST | डेमो क्लास अनुरोध* 🎓
+
+*Course | कोर्स:* ${course.title}
+*Duration | अवधि:* ${course.duration}
+
+*Institute | संस्थान:* Guru Computer Education Institute | गुरु कंप्यूटर एजुकेशन इंस्टीट्यूट
+
+I want to book a free demo class for this course. Please suggest available dates and timings.
+मैं इस कोर्स के लिए एक मुफ्त डेमो क्लास बुक करना चाहता हूं। कृपया उपलब्ध तिथियां और समय सुझाएं।`;
+
+            const whatsappUrl = `https://wa.me/919244240484?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+            closeCourseModal();
+        }
+
+        function whatsappQuery(courseId) {
+            const course = coursesData[courseId];
+            if (!course) return;
+            
+            const message = `🎓 *COURSE QUERY | कोर्स क्वेरी* 🎓
+
+*Course | कोर्स:* ${course.title}
+*Fees | शुल्क:* ${course.fees}
+*Duration | अवधि:* ${course.duration}
+
+*Institute | संस्थान:* Guru Computer Education Institute | गुरु कंप्यूटर एजुकेशन इंस्टीट्यूट
+
+I have query about this course. Please share more details about syllabus, career opportunities, and batch availability.
+मुझे इस कोर्स के बारे में जानकारी चाहिए। कृपया सिलेबस, करियर अवसरों और बैच उपलब्धता के बारे में अधिक जानकारी साझा करें।`;
+
+            const whatsappUrl = `https://wa.me/919244240484?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+            closeCourseModal();
+        }
+
+        // ==================== MAIN SCRIPT ====================
         // Configuration
         const CONFIG = {
             WHATSAPP_NUMBER: '919244240484',
@@ -2379,7 +2449,7 @@
                 icon: 'fas fa-laptop-code',
                 iconBg: 'linear-gradient(135deg, #FF5722 0%, #D84315 100%)',
                 duration: '6 Months',
-                fees: '₹XX,000',
+                fees: '₹6,000',
                 mode: 'Offline',
                 level: 'Comprehensive',
                 description: 'सभी आवश्यक कंप्यूटर एप्लीकेशन को कवर करने वाला एक साल का डिप्लोमा कार्यक्रम। व्यापक कंप्यूटर प्रशिक्षण के साथ नौकरी के लिए तैयार हो जाएं जिसमें बुनियादी से उन्नत कंप्यूटर कौशल शामिल हैं। करियर शुरू करने वालों और नौकरी चाहने वालों के लिए बिल्कुल सही। | One-year diploma program covering all essential computer applications. Get job-ready with comprehensive computer training that includes basic to advanced computer skills. Perfect for career starters and job seekers.',
@@ -2406,7 +2476,7 @@
                 icon: 'fas fa-user-graduate',
                 iconBg: 'linear-gradient(135deg, #795548 0%, #5D4037 100%)',
                 duration: '1 Year',
-                fees: '₹XX,000',
+                fees: '₹8,000',
                 mode: 'Offline',
                 level: 'Advanced',
                 description: 'स्नातकों के लिए उन्नत डिप्लोमा कार्यक्रम जो कंप्यूटर एप्लीकेशन में विशेषज्ञता प्राप्त करना चाहते हैं। प्रोग्रामिंग, डेटाबेस मैनेजमेंट और सॉफ्टवेयर डेवलपमेंट में उन्नत विषयों को कवर करता है। | Advanced diploma program for graduates who want to specialize in computer applications. Covers advanced topics in programming, database management, and software development.',
@@ -2649,12 +2719,6 @@
             document.querySelectorAll('img').forEach(img => {
                 if (!img.loading) img.loading = 'lazy';
             });
-            
-            // Preconnect to Google Fonts
-            const link = document.createElement('link');
-            link.rel = 'preconnect';
-            link.href = 'https://fonts.googleapis.com';
-            document.head.appendChild(link);
         }
 
         // Function to scroll to courses
@@ -2795,7 +2859,7 @@ I'm interested in computer courses. Please contact me for more details.
 मुझे कंप्यूटर कोर्सेज में रुचि है। कृपया अधिक जानकारी के लिए मुझसे संपर्क करें।`;
                 
                 // Get WhatsApp URL
-                const whatsappUrl = getWhatsAppUrl(whatsappMessage);
+                const whatsappUrl = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
                 
                 // Open WhatsApp
                 window.open(whatsappUrl, '_blank');
@@ -2823,6 +2887,7 @@ I'm interested in computer courses. Please contact me for more details.
             const charCount = document.getElementById('charCount');
             
             if (textarea && charCount) {
+                updateCharCount(textarea.value.length);
                 textarea.addEventListener('input', function() {
                     updateCharCount(this.value.length);
                 });
@@ -2921,7 +2986,8 @@ I'm interested in computer courses. Please contact me for more details.
             
             // Mobile validation
             const mobileRegex = /^[6-9]\d{9}$/;
-            if (!mobileRegex.test(mobile)) {
+            const cleanedMobile = mobile.replace(/\D/g, '');
+            if (!mobile || !mobileRegex.test(cleanedMobile)) {
                 showError('contactMobileError', 'Please enter valid 10-digit Indian mobile number | कृपया वैध 10-अंकीय भारतीय मोबाइल नंबर दर्ज करें');
                 isValid = false;
             }
@@ -2956,11 +3022,6 @@ I'm interested in computer courses. Please contact me for more details.
                     errorElement.classList.remove('show');
                 }
             });
-        }
-
-        // Get WhatsApp URL
-        function getWhatsAppUrl(message) {
-            return `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
         }
 
         // Function to add testimonial to display
@@ -3040,35 +3101,6 @@ I'm interested in computer courses. Please contact me for more details.
                     successMsg.parentNode.removeChild(successMsg);
                 }
             }, 3000);
-        }
-
-        // Helper function to get initials from name
-        function getInitials(name) {
-            return name.split(' ')
-                .map(word => word.charAt(0))
-                .join('')
-                .toUpperCase()
-                .substring(0, 2);
-        }
-
-        // Helper function to get relative time
-        function getRelativeTime(timestamp) {
-            const now = new Date();
-            const past = new Date(timestamp);
-            const diffMs = now - past;
-            const diffMins = Math.floor(diffMs / 60000);
-            const diffHours = Math.floor(diffMs / 3600000);
-            const diffDays = Math.floor(diffMs / 86400000);
-            
-            if (diffMins < 60) {
-                return `${diffMins} minute${diffMins !== 1 ? 's' : ''} ago | ${diffMins} मिनट पहले`;
-            } else if (diffHours < 24) {
-                return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago | ${diffHours} घंटे पहले`;
-            } else if (diffDays < 7) {
-                return `${diffDays} day${diffDays !== 1 ? 's' : ''} ago | ${diffDays} दिन पहले`;
-            } else {
-                return past.toLocaleDateString('hi-IN') + ' | ' + past.toLocaleDateString('en-IN');
-            }
         }
 
         function loadAllCourses() {
@@ -3301,51 +3333,6 @@ I'm interested in computer courses. Please contact me for more details.
             document.body.style.overflow = 'hidden';
         }
 
-        function closeCourseModal() {
-            document.getElementById('courseModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        // Course Actions
-        function bookDemo(courseId) {
-            const course = coursesData[courseId];
-            if (!course) return;
-            
-            const message = `🎓 *DEMO CLASS REQUEST | डेमो क्लास अनुरोध* 🎓
-
-*Course | कोर्स:* ${course.title}
-*Duration | अवधि:* ${course.duration}
-
-*Institute | संस्थान:* Guru Computer Education Institute | गुरु कंप्यूटर एजुकेशन इंस्टीट्यूट
-
-I want to book a free demo class for this course. Please suggest available dates and timings.
-मैं इस कोर्स के लिए एक मुफ्त डेमो क्लास बुक करना चाहता हूं। कृपया उपलब्ध तिथियां और समय सुझाएं।`;
-
-            const whatsappUrl = getWhatsAppUrl(message);
-            window.open(whatsappUrl, '_blank');
-            closeCourseModal();
-        }
-
-        function whatsappQuery(courseId) {
-            const course = coursesData[courseId];
-            if (!course) return;
-            
-            const message = `🎓 *COURSE QUERY | कोर्स क्वेरी* 🎓
-
-*Course | कोर्स:* ${course.title}
-*Fees | शुल्क:* ${course.fees}
-*Duration | अवधि:* ${course.duration}
-
-*Institute | संस्थान:* Guru Computer Education Institute | गुरु कंप्यूटर एजुकेशन इंस्टीट्यूट
-
-I have query about this course. Please share more details about syllabus, career opportunities, and batch availability.
-मुझे इस कोर्स के बारे में जानकारी चाहिए। कृपया सिलेबस, करियर अवसरों और बैच उपलब्धता के बारे में अधिक जानकारी साझा करें।`;
-
-            const whatsappUrl = getWhatsAppUrl(message);
-            window.open(whatsappUrl, '_blank');
-            closeCourseModal();
-        }
-
         // Add animation styles
         const style = document.createElement('style');
         style.textContent = `
@@ -3373,6 +3360,4 @@ I have query about this course. Please share more details about syllabus, career
         document.head.appendChild(style);
     </script>
 </body>
-
 </html>
-
